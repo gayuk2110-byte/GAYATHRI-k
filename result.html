@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+    <div class="result-header">
+        <div>
+            <span class="badge">Personalized Result</span>
+            <h1>Hello, {{ user.username }}!</h1>
+        </div>
+        <a class="button secondary" href="/">New Plan</a>
+    </div>
+
+    <div class="profile-grid">
+        <div><strong>User ID</strong><span>{{ user.user_id }}</span></div>
+        <div><strong>Age</strong><span>{{ user.age }}</span></div>
+        <div><strong>Weight</strong><span>{{ user.weight }} kg</span></div>
+        <div><strong>Goal</strong><span>{{ user.goal }}</span></div>
+        <div><strong>Intensity</strong><span>{{ user.intensity }}</span></div>
+    </div>
+</section>
+
+<section class="card">
+    <h2>{{ "Updated Workout Plan" if user.updated_plan else "7-Day Wellness Plan" }}</h2>
+    <pre class="plan">{{ active_plan }}</pre>
+</section>
+
+<section class="card tip-card">
+    <h2>Nutrition / Recovery Tip</h2>
+    <p>{{ user.nutrition_tip }}</p>
+</section>
+
+<section class="card">
+    <h2>Give Feedback</h2>
+    <p>Tell FitBuddy what should be adjusted. For example: “The sessions felt too long.”</p>
+    <form action="/submit-feedback" method="post">
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <textarea name="feedback" required minlength="3" maxlength="1000"
+                  placeholder="Enter your feedback"></textarea>
+        <button type="submit" class="button">Update Plan</button>
+    </form>
+</section>
+{% endblock %}
